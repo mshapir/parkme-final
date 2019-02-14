@@ -55,7 +55,7 @@ function AppAppBar(props) {
           >
             {'ParkMe'}
           </Link>
-          <div className={classes.right}>
+          <div className={classes.right} style={{ display: !props.user.id ? '' : 'none' }}>
             <Link
               color="inherit"
               variant="h6"
@@ -72,6 +72,25 @@ function AppAppBar(props) {
               href="/sign-up"
             >
               {'Sign Up'}
+            </Link>
+          </div>
+          <div className={classes.right} style={{ display: props.user.id ? '' : 'none' }}>
+            <Link
+              color="inherit"
+              variant="h6"
+              underline="none"
+              className={classes.rightLink}
+              href="/listings"
+            >
+              {'Listings'}
+            </Link>
+            <Link
+              variant="h6"
+              underline="none"
+              className={classNames(classes.rightLink, classes.linkSecondary)}
+              href="/reservations"
+            >
+              {'Reservations'}
             </Link>
           </div>
         </Toolbar>

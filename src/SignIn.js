@@ -34,19 +34,37 @@ class SignIn extends React.Component {
   };
 
   validate = values => {
-    const errors = required(['email', 'password'], values, this.props);
+    const errors = required(['username', 'password'], values, this.props);
 
-    if (!errors.email) {
-      const emailError = email(values.email, values, this.props);
-      if (emailError) {
-        errors.email = email(values.email, values, this.props);
-      }
-    }
+    // if (!errors.email) {
+    //   const emailError = email(values.email, values, this.props);
+    //   if (emailError) {
+    //     errors.email = email(values.email, values, this.props);
+    //   }
+    // }
 
     return errors;
   };
 
-  handleSubmit = () => {};
+  handleSubmit = values => {
+    console.log(values)
+    fetch('http://localhost:3001/api/v1/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.hasOwnProperty('error')) {
+        alert(data.error)
+      } else {
+        localStorage.setItem("token", data.token)
+        this.props.updateUser(data.user)
+      }
+    })
+  };
 
   render() {
     const { classes } = this.props;
@@ -62,7 +80,7 @@ class SignIn extends React.Component {
             </Typography>
             <Typography variant="body2" align="center">
               {'Not a member yet? '}
-              <Link href="/sign-up" align="center" underline="always">
+              <Link href="/premium-themes/onepirate/sign-up" align="center" underline="always">
                 Sign Up here
               </Link>
             </Typography>
@@ -75,14 +93,14 @@ class SignIn extends React.Component {
             {({ handleSubmit, submitting }) => (
               <form onSubmit={handleSubmit} className={classes.form} noValidate>
                 <Field
-                  autoComplete="email"
+                  autoComplete="text"
                   autoFocus
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="Email"
+                  label="User Name"
                   margin="normal"
-                  name="email"
+                  name="username"
                   required
                   size="large"
                 />
@@ -120,7 +138,7 @@ class SignIn extends React.Component {
             )}
           </Form>
           <Typography align="center">
-            <Link underline="always" href="/forgot-password">
+            <Link underline="always" href="/premium-themes/onepirate/forgot-password">
               Forgot password?
             </Link>
           </Typography>

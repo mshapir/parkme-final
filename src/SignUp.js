@@ -35,19 +35,40 @@ class SignUp extends React.Component {
   };
 
   validate = values => {
-    const errors = required(['firstName', 'lastName', 'email', 'password'], values, this.props);
+    const errors = required(['name', 'username', 'password', 'password_confirmation'], values, this.props);
 
-    if (!errors.email) {
-      const emailError = email(values.email, values, this.props);
-      if (emailError) {
-        errors.email = email(values.email, values, this.props);
-      }
-    }
+    // if (!errors.email) {
+    //   const emailError = email(values.email, values, this.props);
+    //   if (emailError) {
+    //     errors.email = email(values.email, values, this.props);
+    //   }
+    // }
 
     return errors;
   };
 
-  handleSubmit = () => {};
+  handleSubmit = values => {
+    console.log(values);
+    fetch('http://localhost:3001/api/v1/users/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    })
+    .then(r => r.json())
+    .then(data => {
+      console.log(data);
+      if (data.hasOwnProperty('errors')) {
+        alert(`${data.errors}`)
+      }else {
+        localStorage.setItem("token", data.token)
+        this.props.updateUser(data.user)
+        alert(`User ${data.user.username} was created`)
+      }
+    })
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -79,34 +100,24 @@ class SignUp extends React.Component {
                     <Field
                       autoFocus
                       component={RFTextField}
-                      autoComplete="fname"
+                      autoComplete="name"
                       fullWidth
-                      label="First name"
-                      name="firstName"
+                      label="Name"
+                      name="name"
                       required
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Field
                       component={RFTextField}
-                      autoComplete="lname"
+                      autoComplete="text"
                       fullWidth
-                      label="Last name"
-                      name="lastName"
+                      label="User Name"
+                      name="username"
                       required
                     />
                   </Grid>
                 </Grid>
-                <Field
-                  autoComplete="email"
-                  component={RFTextField}
-                  disabled={submitting || sent}
-                  fullWidth
-                  label="Email"
-                  margin="normal"
-                  name="email"
-                  required
-                />
                 <Field
                   fullWidth
                   component={RFTextField}
@@ -115,6 +126,17 @@ class SignUp extends React.Component {
                   name="password"
                   autoComplete="current-password"
                   label="Password"
+                  type="password"
+                  margin="normal"
+                />
+                <Field
+                  fullWidth
+                  component={RFTextField}
+                  disabled={submitting || sent}
+                  required
+                  name="password_confirmation"
+                  autoComplete="current-password"
+                  label="confirm Password"
                   type="password"
                   margin="normal"
                 />
