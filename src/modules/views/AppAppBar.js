@@ -38,67 +38,71 @@ const styles = theme => ({
   },
 });
 
-function AppAppBar(props) {
-  const { classes } = props;
+class AppAppBar extends React.Component {
 
-  return (
-    <div>
+  render(){
+    const { classes } = this.props;
+    console.log(this.props);
+    return (
+      <div>
       <AppBar position="fixed">
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.left} />
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.title}
-            href="/"
-          >
-            {'ParkMe'}
-          </Link>
-          <div className={classes.right} style={{ display: !props.user.id ? '' : 'none' }}>
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.rightLink}
-              href="/sign-in"
-            >
-              {'Sign In'}
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              className={classNames(classes.rightLink, classes.linkSecondary)}
-              href="/sign-up"
-            >
-              {'Sign Up'}
-            </Link>
-          </div>
-          <div className={classes.right} style={{ display: props.user.id ? '' : 'none' }}>
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.rightLink}
-              href="/listings"
-            >
-              {'Listings'}
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              className={classNames(classes.rightLink, classes.linkSecondary)}
-              href="/reservations"
-            >
-              {'Reservations'}
-            </Link>
-          </div>
-        </Toolbar>
+      <Toolbar className={classes.toolbar}>
+      <div className={classes.left} />
+      <Link
+      variant="h6"
+      underline="none"
+      color="inherit"
+      className={classes.title}
+      href="/"
+      >
+      {'ParkMe'}
+      </Link>
+      <div className={classes.right} style={{ display: !this.props.user.id ? '' : 'none' }}>
+      <Link
+      color="inherit"
+      variant="h6"
+      underline="none"
+      className={classes.rightLink}
+      href="/sign-in"
+      >
+      {'Sign In'}
+      </Link>
+      <Link
+      variant="h6"
+      underline="none"
+      className={classNames(classes.rightLink, classes.linkSecondary)}
+      href="/sign-up"
+      >
+      {'Sign Up'}
+      </Link>
+      </div>
+      <div className={classes.right} style={{ display: this.props.user.id ? '' : 'none' }}>
+      <Link
+      color="inherit"
+      variant="h6"
+      underline="none"
+      className={classes.rightLink}
+      href="/listings"
+      >
+      {'Listings'}
+      </Link>
+      <Link
+      variant="h6"
+      underline="none"
+      className={classNames(classes.rightLink, classes.linkSecondary)}
+      href="/reservations"
+      >
+      {'Reservations'}
+      </Link>
+      </div>
+      </Toolbar>
       </AppBar>
       <div className={classes.placeholder} />
-    </div>
-  );
-}
+      </div>
+    );
+  }
+
+  }
 
 AppAppBar.propTypes = {
   classes: PropTypes.object.isRequired,

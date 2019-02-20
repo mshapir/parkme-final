@@ -146,17 +146,17 @@ class App extends Component {
         <Switch>
         <Route
         path='/newlisting'
-        render={() => (<NewListingForm />)}
+        render={() => (<NewListingForm user={this.state.user}/>)}
         />
         <Route
           path='/sign-up'
-          render={() => (<SignUp updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} />)}
+          render={() => (<SignUp updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} user={this.state.user}/>)}
         />
         <Route
           path='/sign-in'
           render={() => (
           <div>
-          <SignIn updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} />
+          <SignIn updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} user={this.state.user}/>
           </div> )}
         />
         <Route
