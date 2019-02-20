@@ -89,10 +89,18 @@ class AppAppBar extends React.Component {
       <Link
       variant="h6"
       underline="none"
-      className={classNames(classes.rightLink, classes.linkSecondary)}
+      className={classNames(classes.rightLink)}
       href="/reservations"
       >
       {'Reservations'}
+      </Link>
+      <Link
+      variant="h6"
+      underline="none"
+      className={classNames(classes.rightLink, classes.linkSecondary)}
+      href="/profile"
+      >
+      {`${this.props.user.username}`}
       </Link>
       </div>
       </Toolbar>
