@@ -2,18 +2,18 @@ import withRoot from './modules/withRoot';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import AppAppBar from './modules/views/AppAppBar';
-import ListingCard from './ListingCard';
+import ReservationCard from './ReservationCard';
 
-class ListingCont extends Component {
+class ReservationCont extends Component {
 
   render() {
     return (
       <React.Fragment>
       <AppAppBar user={this.props.user}/>
       <Grid container spacing={24} style={{padding: 24}}>
-        {this.props.listings.map(listing => {
+        {this.props.reservations.map(reservation => {
           return <Grid item  s={6} l={4} xl={3}>
-              <ListingCard listing={listing} updateReservations={this.props.updateReservations} user={this.props.user}/>
+              <ReservationCard reservation={reservation}/>
             </Grid>
         })}
       </Grid>
@@ -23,4 +23,4 @@ class ListingCont extends Component {
 
 }
 
-export default withRoot(ListingCont);
+export default withRoot(ReservationCont);

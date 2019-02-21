@@ -6,6 +6,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import NewListingForm from './NewListingForm';
 import ListingCont from './ListingCont';
+import ReservationCont from './ReservationCont';
 import {Route, Switch, withRouter} from 'react-router-dom';
 
 
@@ -146,12 +147,16 @@ class App extends Component {
       <div className="App">
         <Switch>
         <Route
+        path='/reservations'
+        render={() => (<ReservationCont reservations={this.state.reservations}  user={this.state.user}/>)}
+        />
+        <Route
         path='/newlisting'
         render={() => (<NewListingForm user={this.state.user}/>)}
         />
         <Route
         path='/listings'
-        render={() => (<ListingCont user={this.state.user} listings={this.state.listings}/>)}
+        render={() => (<ListingCont updateReservations={this.updateReservations} user={this.state.user} listings={this.state.listings}/>)}
         />
         <Route
           path='/sign-up'

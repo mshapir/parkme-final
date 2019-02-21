@@ -1,5 +1,4 @@
-import withRoot from './modules/withRoot';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
@@ -12,13 +11,11 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import TimeToLeaveIcon from '@material-ui/icons/TimeToLeave';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import red from '@material-ui/core/colors/red';
-import theme from './modules/theme';
+import HighlightOff from '@material-ui/icons/HighlightOff';
 
 const styles = theme => ({
   card: {
@@ -46,74 +43,74 @@ const styles = theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  avatar: {
-    backgroundColor: red[500],
-  },
 });
 
-class ListingCard extends Component {
-
+class ReservationCard extends React.Component {
   state = {
-    expanded: false
+    expanded: false,
+    reviewModal: false
   };
-
-
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  handleModal = () => {
+    this.setState({reviewModal: !this.state.reviewModal})
+  };
 
-  bookListing = (listing) => {
+  deletReservation = (reservation) => {
+    console.log(reservation.id);
     let token = localStorage.getItem("token")
-    fetch('http://localhost:3001/api/v1/reservations', {
-      method: 'POST',
+    fetch(`http://localhost:3001/api/v1/reservations/${reservation.id}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${token}`
-      },
-      body: JSON.stringify({
-        listing_id: listing.id,
-        user_id: this.props.user.id
-      })
+      }
     })
     .then(r => r.json())
     .then(data => {
-      alert(`You Booked ${listing.title}`)
-      this.props.updateReservations(data)
+      this.props.deleteReservation(reservation)
     })
-  };
+  }
+
 
 
   render() {
     const { classes } = this.props;
-    console.log(this.props.user.id);
+
     return (
       <div style={{ display: 'inline-flex', paddingLeft: '25px', height: '100%' }}>
       <Card className={classes.card}>
         <CardHeader
-          title={this.props.listing.title}
-          subheader={`${this.props.listing.location} - $${this.props.listing.price}`}
+          action={
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={this.props.reservation.listing.title}
+          subheader={`${this.props.reservation.listing.location} - $${this.props.reservation.listing.price}`}
         />
         <CardMedia
           className={classes.media}
-          image={this.props.listing.image}
-          title={this.props.listing.title}
+          image={this.props.reservation.listing.image}
+          title={this.props.reservation.listing.title}
         />
         <CardContent>
           <Typography component="p">
-            {this.props.listing.description}
+            {this.props.reservation.listing.description}
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+          <IconButton aria-label="Add to favorites" onClick={this.handleModal}>
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="Share">
             <ShareIcon />
           </IconButton>
-          <IconButton aria-label="Book" onClick={() => this.bookListing(this.props.listing)}>
-            <TimeToLeaveIcon />
+          <IconButton aria-label="Delete" onClick={() => this.deletReservation(this.props.reservation)}>
+            <HighlightOff />
           </IconButton>
           <IconButton
             className={classnames(classes.expand, {
@@ -128,8 +125,9 @@ class ListingCard extends Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Reviews</Typography>
+            <Typography paragraph>Method:</Typography>
             <Typography paragraph>
+              {this.props.reservation.listing.description}
             </Typography>
           </CardContent>
         </Collapse>
@@ -139,15 +137,11 @@ class ListingCard extends Component {
   }
 }
 
-ListingCard.propTypes = {
+ReservationCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withRoot(ListingCard));
+export default withStyles(styles)(ReservationCard);
 
-
-
-
-// {this.props.listing.reviews.map(review => {
-//   return <Reviews key={review.id} review={review} />
-// })}
+//
+// {this.state.reviewModal  ? <ReviewModal reviewModal={this.handleModal} listing={this.props.reservation.listing} user={this.props.user} updateReviews={this.props.updateReviews}/> : ''}
