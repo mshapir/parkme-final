@@ -15,6 +15,7 @@ import { email, required } from './modules/form/validation';
 import RFTextField from './modules/form/RFTextField';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
+import SocialLogin from './SocialLogin';
 
 const styles = theme => ({
   form: {
@@ -160,6 +161,7 @@ class SignUp extends React.Component {
               </form>
             )}
           </Form>
+          <SocialLogin updateUser={this.props.updateUser}/>
         </AppForm>
         <AppFooter />
       </React.Fragment>

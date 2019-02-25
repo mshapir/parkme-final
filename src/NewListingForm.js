@@ -35,19 +35,46 @@ class NewListingForm extends React.Component {
   };
 
   validate = values => {
-    const errors = required(['firstName', 'lastName', 'email', 'password'], values, this.props);
+    const errors = required(['price', 'location', 'title', 'description', 'image'], values, this.props);
 
-    if (!errors.email) {
-      const emailError = email(values.email, values, this.props);
-      if (emailError) {
-        errors.email = email(values.email, values, this.props);
-      }
-    }
+    // if (!errors.email) {
+    //   const emailError = email(values.email, values, this.props);
+    //   if (emailError) {
+    //     errors.email = email(values.email, values, this.props);
+    //   }
+    // }
 
     return errors;
   };
 
-  handleSubmit = () => {};
+  handleSubmit = values => {
+    let token = localStorage.getItem("token")
+    fetch('http://localhost:3001/api/v1/listings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${token}`
+      },
+      body: JSON.stringify({
+        title: values.title,
+        price: values.price,
+        location: values.location,
+        description: values.description,
+        image: values.image,
+        user_id: this.props.user.id
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.hasOwnProperty('errors')) {
+        alert(`${data.errors}`)
+      } else {
+        alert(`Created ${data.title}`)
+        this.props.updateListings(data)
+      }
+    })
+  }
+
 
   render() {
     const { classes } = this.props;

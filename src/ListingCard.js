@@ -106,13 +106,7 @@ class ListingCard extends Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
-          <IconButton aria-label="Book" onClick={() => this.bookListing(this.props.listing)}>
+          <IconButton aria-label="Book" title='Click to Reserve' onClick={() => this.bookListing(this.props.listing)}>
             <TimeToLeaveIcon />
           </IconButton>
           <IconButton

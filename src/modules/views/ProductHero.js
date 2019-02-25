@@ -44,6 +44,9 @@ function ProductHero(props) {
       <Typography color="inherit" align="center" variant="h5" className={classes.h5}>
         Enjoy the peace of mind that comes with having a parking spot when you need it, for how long you need it.
       </Typography>
+      {!props.user.id
+        ?
+        <div>
       <Button
         color="secondary"
         variant="contained"
@@ -57,7 +60,23 @@ function ProductHero(props) {
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
         Discover the experience
-      </Typography>
+      </Typography></div>
+      :
+      <div>
+      <Button
+        color="secondary"
+        variant="contained"
+        size="large"
+        className={classes.button}
+        component={linkProps => (
+          <Link {...linkProps} href="/listings" variant="button" />
+        )}
+      >
+        See Listings
+      </Button>
+      <Typography variant="body2" color="inherit" className={classes.more}>
+        Start Boooking Today
+      </Typography></div>}
     </ProductHeroLayout>
   );
 }

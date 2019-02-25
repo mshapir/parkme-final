@@ -14,10 +14,10 @@ function Index(props) {
   return (
     <React.Fragment>
       <AppAppBar user={props.user}/>
-      <ProductHero />
+      <ProductHero user={props.user}/>
       <ProductValues />
       <ProductCategories />
-      <ProductHowItWorks />
+      <ProductHowItWorks user={props.user}/>
       <ProductCTA />
       <ProductSmokingHero />
       <AppFooter />

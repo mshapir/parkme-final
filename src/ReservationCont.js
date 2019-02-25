@@ -13,7 +13,7 @@ class ReservationCont extends Component {
       <Grid container spacing={24} style={{padding: 24}}>
         {this.props.reservations.map(reservation => {
           return <Grid item  s={6} l={4} xl={3}>
-              <ReservationCard reservation={reservation}/>
+              <ReservationCard reservation={reservation} deleteReservation={this.props.deleteReservation} user={this.props.user} updateReviews={this.props.updateReviews}/>
             </Grid>
         })}
       </Grid>

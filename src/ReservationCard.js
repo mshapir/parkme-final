@@ -16,6 +16,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import HighlightOff from '@material-ui/icons/HighlightOff';
+import ReviewModal from './ReviewModal'
 
 const styles = theme => ({
   card: {
@@ -59,7 +60,7 @@ class ReservationCard extends React.Component {
     this.setState({reviewModal: !this.state.reviewModal})
   };
 
-  deletReservation = (reservation) => {
+  deleteReservation = (reservation) => {
     console.log(reservation.id);
     let token = localStorage.getItem("token")
     fetch(`http://localhost:3001/api/v1/reservations/${reservation.id}`, {
@@ -82,13 +83,9 @@ class ReservationCard extends React.Component {
 
     return (
       <div style={{ display: 'inline-flex', paddingLeft: '25px', height: '100%' }}>
+      {this.state.reviewModal  ? <ReviewModal reviewModal={this.handleModal} listing={this.props.reservation.listing} user={this.props.user} updateReviews={this.props.updateReviews}/> : ''}
       <Card className={classes.card}>
         <CardHeader
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
           title={this.props.reservation.listing.title}
           subheader={`${this.props.reservation.listing.location} - $${this.props.reservation.listing.price}`}
         />
@@ -103,24 +100,11 @@ class ReservationCard extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites" onClick={this.handleModal}>
+          <IconButton aria-label="Add to favorites" title='Write a review'  onClick={this.handleModal}>
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
-          <IconButton aria-label="Delete" onClick={() => this.deletReservation(this.props.reservation)}>
+          <IconButton aria-label="Delete" title='Delete Reservation'  onClick={() => this.deleteReservation(this.props.reservation)}>
             <HighlightOff />
-          </IconButton>
-          <IconButton
-            className={classnames(classes.expand, {
-              [classes.expandOpen]: this.state.expanded,
-            })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
           </IconButton>
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
@@ -142,6 +126,3 @@ ReservationCard.propTypes = {
 };
 
 export default withStyles(styles)(ReservationCard);
-
-//
-// {this.state.reviewModal  ? <ReviewModal reviewModal={this.handleModal} listing={this.props.reservation.listing} user={this.props.user} updateReviews={this.props.updateReviews}/> : ''}

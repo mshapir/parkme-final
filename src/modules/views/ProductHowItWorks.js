@@ -109,6 +109,8 @@ function ProductHowItWorks(props) {
             </Grid>
           </Grid>
         </div>
+        {!props.user.id
+        ?
         <Button
           color="secondary"
           size="large"
@@ -120,6 +122,18 @@ function ProductHowItWorks(props) {
         >
           Get started
         </Button>
+        :
+        <Button
+          color="secondary"
+          size="large"
+          variant="contained"
+          className={classes.button}
+          component={linkProps => (
+            <Link {...linkProps} href="/listings" variant="button" />
+          )}
+        >
+          See Listings
+        </Button>}
       </LayoutBody>
     </section>
   );

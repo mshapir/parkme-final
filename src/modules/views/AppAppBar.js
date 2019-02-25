@@ -7,7 +7,7 @@ import AppBar from '../components/AppBar';
 import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
 import SignUp from '../../SignUp';
 import SignIn from '../../SignIn';
-import {Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter, NavLink} from 'react-router-dom';
 
 const styles = theme => ({
   title: {
@@ -78,6 +78,7 @@ class AppAppBar extends React.Component {
       </div>
       <div className={classes.right} style={{ display: this.props.user.id ? '' : 'none' }}>
       <Link
+      title='See all listings'
       color="inherit"
       variant="h6"
       underline="none"
@@ -87,12 +88,22 @@ class AppAppBar extends React.Component {
       {'Listings'}
       </Link>
       <Link
+      title='See all Reserved Spots'
       variant="h6"
       underline="none"
       className={classNames(classes.rightLink)}
       href="/reservations"
       >
       {'Reservations'}
+      </Link>
+      <Link
+      title='Create a listing'
+      variant="h6"
+      underline="none"
+      className={classNames(classes.rightLink)}
+      href="/newlisting"
+      >
+      {'Create'}
       </Link>
       <Link
       variant="h6"

@@ -33,7 +33,7 @@ class App extends Component {
       this.fetchAllListings()
       this.getReservations()
       this.getMyListings()
-      this.props.history.push('/home')
+      this.props.history.push('/listings')
     })
   }
 
@@ -46,7 +46,7 @@ class App extends Component {
     let listings = [...this.state.listings, listing]
     this.setState({
       listings
-    }, () => this.props.history.push('/home'))
+    }, () => this.props.history.push('/listings'))
   }
 
   updateReservations = (reservation) => {
@@ -148,11 +148,11 @@ class App extends Component {
         <Switch>
         <Route
         path='/reservations'
-        render={() => (<ReservationCont reservations={this.state.reservations}  user={this.state.user}/>)}
+        render={() => (<ReservationCont reservations={this.state.reservations}  user={this.state.user} deleteReservation={this.deleteReservation} updateReviews={this.updateReviews}/>)}
         />
         <Route
         path='/newlisting'
-        render={() => (<NewListingForm user={this.state.user}/>)}
+        render={() => (<NewListingForm updateListings={this.updateListings} user={this.state.user}/>)}
         />
         <Route
         path='/listings'
