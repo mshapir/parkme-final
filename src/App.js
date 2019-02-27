@@ -181,7 +181,7 @@ class App extends Component {
           path='/account'
           render={() => (
           <div>
-          <MyAccount user={this.state.user} listings={this.state.myListings} reservations={this.state.reservations}/>
+          <MyAccount user={this.state.user} listings={this.state.myListings} reservations={this.state.reservations} logout={this.handleLogout}/>
           </div> )}
         />
         <Route
