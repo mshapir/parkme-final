@@ -77,7 +77,7 @@ class SignUp extends React.Component {
 
     return (
       <React.Fragment>
-        <AppAppBar user={this.props.user}/>
+        <AppAppBar user={this.props.user} logout={this.props.logout} goToAccount={this.props.goToAccount}/>
         <AppForm>
           <React.Fragment>
             <Typography variant="h3" gutterBottom marked="center" align="center">

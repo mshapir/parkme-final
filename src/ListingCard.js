@@ -17,6 +17,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import InfoDialog from './InfoDialog';
 import red from '@material-ui/core/colors/red';
 import theme from './modules/theme';
 
@@ -54,7 +55,9 @@ const styles = theme => ({
 class ListingCard extends Component {
 
   state = {
-    expanded: false
+    expanded: false,
+    openModal: false,
+    successMessage: ''
   };
 
 
@@ -79,10 +82,19 @@ class ListingCard extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      alert(`You Booked ${listing.title}`)
+      this.setState({
+        openModal: true,
+        successMessage: `You have successfully booked ${listing.title}, happy parking!`
+      });
       this.props.updateReservations(data)
     })
   };
+
+  closeModal = () => {
+    this.setState({
+      openModal: false
+    });
+  }
 
 
   render() {
@@ -128,6 +140,7 @@ class ListingCard extends Component {
           </CardContent>
         </Collapse>
       </Card>
+      <InfoDialog title='Congrats!' description={this.state.successMessage} closeModal={this.closeModal} open={this.state.openModal} handleButtonClick={this.props.openReservationsPage} extraButton extraButtonText='My Reservations' />
       </div>
     );
   }

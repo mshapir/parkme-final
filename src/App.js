@@ -7,8 +7,8 @@ import SignUp from './SignUp';
 import NewListingForm from './NewListingForm';
 import ListingCont from './ListingCont';
 import ReservationCont from './ReservationCont';
+import MyAccount from './MyAccount';
 import {Route, Switch, withRouter} from 'react-router-dom';
-
 
 class App extends Component {
   state={
@@ -53,7 +53,7 @@ class App extends Component {
     let reservations = [...this.state.reservations, reservation]
     this.setState({
       reservations
-    }, () => this.props.history.push('/reservations'))
+    })
   }
 
   deleteReservation = (reservationObj) => {
@@ -88,7 +88,7 @@ class App extends Component {
       this.setState({
         user: [],
         isLoggedIn: false
-      }, () => this.props.history.push('/login'))
+      }, () => this.props.history.push('/sign-in'))
   }
 
   getMyListings = () => {
@@ -142,38 +142,53 @@ class App extends Component {
     })
   }
 
+  openReservationsPage = () => {
+    this.props.history.push('/reservations');
+  }
+
+  goToAccount = () => {
+    this.props.history.push('/account');
+  }
+
   render() {
     return (
       <div className="App">
         <Switch>
         <Route
         path='/reservations'
-        render={() => (<ReservationCont reservations={this.state.reservations}  user={this.state.user} deleteReservation={this.deleteReservation} updateReviews={this.updateReviews}/>)}
+        render={() => (<ReservationCont reservations={this.state.reservations}  user={this.state.user} deleteReservation={this.deleteReservation} updateReviews={this.updateReviews} logout={this.handleLogout} goToAccount={this.goToAccount}/>)}
         />
         <Route
         path='/newlisting'
-        render={() => (<NewListingForm updateListings={this.updateListings} user={this.state.user}/>)}
+        render={() => (<NewListingForm updateListings={this.updateListings} user={this.state.user} logout={this.handleLogout} goToAccount={this.goToAccount}/>)}
         />
         <Route
         path='/listings'
-        render={() => (<ListingCont updateReservations={this.updateReservations} user={this.state.user} listings={this.state.listings}/>)}
+        render={() => (<ListingCont updateReservations={this.updateReservations} user={this.state.user} listings={this.state.listings} logout={this.handleLogout} openReservationsPage={this.openReservationsPage} goToAccount={this.goToAccount}/>)}
         />
         <Route
           path='/sign-up'
-          render={() => (<SignUp updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} user={this.state.user}/>)}
+          render={() => (<SignUp updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} user={this.state.user} logout={this.handleLogout} goToAccount={this.goToAccount}/>)}
         />
         <Route
           path='/sign-in'
           render={() => (
           <div>
-          <SignIn updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} user={this.state.user}/>
+          <SignIn updateUser={this.updateUser} getCurrentUser={this.getCurrentUser} user={this.state.user} logout={this.handleLogout} goToAccount={this.goToAccount}/>
+          </div> )}
+        />
+        <Route
+          path='/account'
+          render={() => (
+          <div>
+          <MyAccount user={this.state.user} listings={this.state.myListings} reservations={this.state.reservations}/>
           </div> )}
         />
         <Route
           path='/'
           render={() => (
           <div>
-          <Home user={this.state.user}/>
+          <Home user={this.state.user} logout={this.handleLogout} goToAccount={this.goToAccount}/>
           </div> )}
         />
         </Switch>

@@ -15,6 +15,7 @@ import RFTextField from './modules/form/RFTextField';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import SocialLogin from './SocialLogin';
+import InfoDialog from './InfoDialog'
 
 
 const styles = theme => ({
@@ -33,6 +34,8 @@ const styles = theme => ({
 class SignIn extends React.Component {
   state = {
     sent: false,
+    openModal: false,
+    errorForModal: 'hey'
   };
 
   validate = values => {
@@ -59,12 +62,21 @@ class SignIn extends React.Component {
     .then(r => r.json())
     .then(data => {
       if (data.hasOwnProperty('error')) {
-        alert(data.error)
+        this.setState({
+          openModal: true,
+          errorForModal: data.error
+        })
       } else {
         localStorage.setItem("token", data.token)
         this.props.updateUser(data.user)
       }
     })
+  };
+
+  closeModal = () => {
+    this.setState({
+      openModal: false
+    });
   };
 
   render() {
@@ -73,7 +85,8 @@ class SignIn extends React.Component {
 
     return (
       <React.Fragment>
-        <AppAppBar user={this.props.user}/>
+        <AppAppBar user={this.props.user} logout={this.props.logout} goToAccount={this.props.goToAccount}/>
+        <InfoDialog title='Error' description={this.state.errorForModal} open={this.state.openModal} closeModal={this.closeModal}/>
         <AppForm>
           <React.Fragment>
             <Typography variant="h3" gutterBottom marked="center" align="center">

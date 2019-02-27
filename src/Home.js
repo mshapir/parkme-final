@@ -13,7 +13,7 @@ import AppAppBar from './modules/views/AppAppBar';
 function Index(props) {
   return (
     <React.Fragment>
-      <AppAppBar user={props.user}/>
+      <AppAppBar user={props.user} logout={props.logout} goToAccount={props.goToAccount}/>
       <ProductHero user={props.user}/>
       <ProductValues />
       <ProductCategories />

@@ -7,18 +7,22 @@ import AppBar from '../components/AppBar';
 import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
 import SignUp from '../../SignUp';
 import SignIn from '../../SignIn';
+import UserMenu from '../../UserMenu';
 import {Route, Switch, withRouter, NavLink} from 'react-router-dom';
 
 const styles = theme => ({
   title: {
     fontSize: 24,
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-start',
   },
   placeholder: toolbarStyles(theme).root,
   toolbar: {
     justifyContent: 'space-between',
   },
   left: {
-    flex: 1,
+    marginRight: 'auto'
   },
   leftLinkActive: {
     color: theme.palette.common.white,
@@ -105,14 +109,7 @@ class AppAppBar extends React.Component {
       >
       {'Create'}
       </Link>
-      <Link
-      variant="h6"
-      underline="none"
-      className={classNames(classes.rightLink, classes.linkSecondary)}
-      href="/profile"
-      >
-      {`${this.props.user.username}`}
-      </Link>
+      <UserMenu user={this.props.user} styles={classes} logout={this.props.logout} goToAccount={this.props.goToAccount}/>
       </div>
       </Toolbar>
       </AppBar>
