@@ -33,7 +33,7 @@ class App extends Component {
       this.fetchAllListings()
       this.getReservations()
       this.getMyListings()
-      this.props.history.push('/listings')
+      this.props.history.push('/account')
     })
   }
 

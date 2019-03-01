@@ -18,6 +18,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoDialog from './InfoDialog';
+import Reviews from './Reviews';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
 import red from '@material-ui/core/colors/red';
 import theme from './modules/theme';
 
@@ -135,8 +138,13 @@ class ListingCard extends Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Reviews</Typography>
-            <Typography paragraph>
-            </Typography>
+            <Paper style={{paddingBottom: 20, maxHeight: 200, overflow: 'auto'}}>
+                  <List>
+                  {this.props.listing.reviews.map(review => {
+                return <Reviews key={review.id} review={review} />
+              })}
+                  </List>
+                </Paper>
           </CardContent>
         </Collapse>
       </Card>

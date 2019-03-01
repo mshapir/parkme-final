@@ -65,7 +65,6 @@ class SignUp extends React.Component {
       }else {
         localStorage.setItem("token", data.token)
         this.props.updateUser(data.user)
-        alert(`User ${data.user.username} was created`)
       }
     })
 
