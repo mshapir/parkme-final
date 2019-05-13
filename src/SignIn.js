@@ -52,7 +52,7 @@ class SignIn extends React.Component {
   };
 
   handleSubmit = values => {
-    fetch('http://localhost:3001/api/v1/users/login', {
+    fetch('http://localhost:3000/api/v1/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

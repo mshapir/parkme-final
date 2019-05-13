@@ -63,7 +63,7 @@ class ReservationCard extends React.Component {
   deleteReservation = (reservation) => {
     console.log(reservation.id);
     let token = localStorage.getItem("token")
-    fetch(`http://localhost:3001/api/v1/reservations/${reservation.id}`, {
+    fetch(`http://localhost:3000/api/v1/reservations/${reservation.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

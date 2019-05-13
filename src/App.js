@@ -66,7 +66,7 @@ class App extends Component {
 
   getCurrentUser = () => {
     let token = localStorage.getItem("token")
-    return fetch('http://localhost:3001/api/v1/users/current_user',{
+    return fetch('http://localhost:3000/api/v1/users/current_user',{
       method: 'POST',
       headers: {
         Authorization: `${token}`
@@ -93,7 +93,7 @@ class App extends Component {
 
   getMyListings = () => {
     let token = localStorage.getItem("token")
-    fetch(`http://localhost:3001/api/v1/users/${this.state.user.id}/listings`, {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.user.id}/listings`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ class App extends Component {
 
   getReservations = () => {
     let token = localStorage.getItem("token")
-    fetch(`http://localhost:3001/api/v1/users/${this.state.user.id}/reservations`, {
+    fetch(`http://localhost:3000/api/v1/users/${this.state.user.id}/reservations`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ class App extends Component {
 
   fetchAllListings = () => {
     let token = localStorage.getItem("token")
-    return fetch('http://localhost:3001/api/v1/listings/', {
+    return fetch('http://localhost:3000/api/v1/listings/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

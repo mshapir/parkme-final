@@ -31,7 +31,7 @@ class ReviewModal extends React.Component {
 
   handleSubmitReview = () => {
     let token = localStorage.getItem("token")
-    fetch('http://localhost:3001/api/v1/reviews', {
+    fetch('http://localhost:3000/api/v1/reviews', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ class ReviewModal extends React.Component {
               onChange={this.handleChange}
               fullWidth
             />
-            Rating: 
+            Rating:
             <select value={this.state.rating} onChange={this.handleChange} name='rating'>
               <option value="1">1</option>
               <option value="2">2</option>

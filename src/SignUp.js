@@ -50,7 +50,7 @@ class SignUp extends React.Component {
 
   handleSubmit = values => {
     console.log(values);
-    fetch('http://localhost:3001/api/v1/users/', {
+    fetch('http://localhost:3000/api/v1/users/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

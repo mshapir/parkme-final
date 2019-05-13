@@ -6,7 +6,7 @@ class SocialLogin extends Component {
   facebookCallback = (response) => {
     console.log(response);
     if (response.hasOwnProperty('userID')) {
-      fetch('http://localhost:3001/api/v1/users/social_login', {
+      fetch('http://localhost:3000/api/v1/users/social_login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ class SocialLogin extends Component {
   googleSuccessCallback = (response) => {
     console.log(response.profileObj);
     if (response.profileObj.hasOwnProperty('googleId')) {
-      fetch('http://localhost:3001/api/v1/users/social_login', {
+      fetch('http://localhost:3000/api/v1/users/social_login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

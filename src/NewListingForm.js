@@ -49,7 +49,7 @@ class NewListingForm extends React.Component {
 
   handleSubmit = values => {
     let token = localStorage.getItem("token")
-    fetch('http://localhost:3001/api/v1/listings', {
+    fetch('http://localhost:3000/api/v1/listings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
