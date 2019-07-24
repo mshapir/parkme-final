@@ -52,7 +52,7 @@ class SocialLogin extends Component {
   }
 
   googleFailureCallback = (response) => {
-    alert(response.error)
+    // alert(response.error)
   }
 
   render() {

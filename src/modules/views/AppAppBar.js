@@ -5,10 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import AppBar from '../components/AppBar';
 import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
-import SignUp from '../../SignUp';
-import SignIn from '../../SignIn';
 import UserMenu from '../../UserMenu';
-import {Route, Switch, withRouter, NavLink} from 'react-router-dom';
 
 const styles = theme => ({
   title: {

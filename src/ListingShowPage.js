@@ -1,6 +1,6 @@
+import React, { Component } from 'react';
 import withRoot from './modules/withRoot';
 // --- Post bootstrap -----
-import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,9 +14,6 @@ import {  required } from './modules/form/validation';
 import RFTextField from './modules/form/RFTextField';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
-import SocialLogin from './SocialLogin';
-import InfoDialog from './InfoDialog'
-
 
 const styles = theme => ({
   form: {
@@ -31,15 +28,14 @@ const styles = theme => ({
   },
 });
 
-class SignIn extends React.Component {
+class ListingShowPage extends Component {
+
   state = {
-    sent: false,
-    openModal: false,
-    errorForModal: 'hey'
-  };
+    address: ''
+  }
 
   validate = values => {
-    const errors = required(['username', 'password'], values, this.props);
+    const errors = required(['location'], values, this.props);
 
     // if (!errors.email) {
     //   const emailError = email(values.email, values, this.props);
@@ -51,33 +47,9 @@ class SignIn extends React.Component {
     return errors;
   };
 
-  handleSubmit = values => {
-    fetch('http://localhost:3000/api/v1/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    })
-    .then(r => r.json())
-    .then(data => {
-      if (data.hasOwnProperty('error')) {
-        this.setState({
-          openModal: true,
-          errorForModal: data.error
-        })
-      } else {
-        localStorage.setItem("token", data.token)
-        this.props.updateUser(data.user)
-      }
-    })
-  };
-
-  closeModal = () => {
-    this.setState({
-      openModal: false
-    });
-  };
+  handleSubmit = (values) => {
+    console.log(values)
+  }
 
   render() {
     const { classes } = this.props;
@@ -85,18 +57,10 @@ class SignIn extends React.Component {
 
     return (
       <React.Fragment>
-        <AppAppBar user={this.props.user} logout={this.props.logout} goToAccount={this.props.goToAccount}/>
-        <InfoDialog title='Error' description={this.state.errorForModal} open={this.state.openModal} closeModal={this.closeModal}/>
         <AppForm>
           <React.Fragment>
             <Typography variant="h3" gutterBottom marked="center" align="center">
-              Sign In
-            </Typography>
-            <Typography variant="body2" align="center">
-              {'Not a member yet? '}
-              <Link href="sign-up" align="center" underline="always">
-                Sign Up here
-              </Link>
+              Location Address
             </Typography>
           </React.Fragment>
           <Form
@@ -112,23 +76,11 @@ class SignIn extends React.Component {
                   component={RFTextField}
                   disabled={submitting || sent}
                   fullWidth
-                  label="User Name"
+                  label="Location"
                   margin="normal"
-                  name="username"
+                  name="location"
                   required
                   size="large"
-                />
-                <Field
-                  fullWidth
-                  size="large"
-                  component={RFTextField}
-                  disabled={submitting || sent}
-                  required
-                  name="password"
-                  autoComplete="current-password"
-                  label="Password"
-                  type="password"
-                  margin="normal"
                 />
                 <FormSpy subscription={{ submitError: true }}>
                   {({ submitError }) =>
@@ -146,17 +98,13 @@ class SignIn extends React.Component {
                   color="secondary"
                   fullWidth
                 >
-                  {submitting || sent ? 'In progress…' : 'Sign In'}
+                  {submitting || sent ? 'In progress…' : 'Set Location'}
                 </FormButton>
               </form>
             )}
           </Form>
           <Typography align="center">
-            <Link underline="always" href="/premium-themes/onepirate/forgot-password">
-              Forgot password?
-            </Link>
           </Typography>
-          <SocialLogin updateUser={this.props.updateUser}/>
         </AppForm>
         <AppFooter />
       </React.Fragment>
@@ -164,11 +112,11 @@ class SignIn extends React.Component {
   }
 }
 
-SignIn.propTypes = {
+ListingShowPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default compose(
   withRoot,
   withStyles(styles),
-)(SignIn);
+)(ListingShowPage);
