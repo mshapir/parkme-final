@@ -9,20 +9,15 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import TimeToLeaveIcon from '@material-ui/icons/TimeToLeave';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InfoDialog from './InfoDialog';
 import Reviews from './Reviews';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import red from '@material-ui/core/colors/red';
-import theme from './modules/theme';
 
 const styles = theme => ({
   card: {
@@ -31,14 +26,17 @@ const styles = theme => ({
     minWidth: 300,
     minHeight: 300,
     padding: '10px',
-    margin: '10px'
+    margin: '10px',
+    borderRadius: 25
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '50%', // 16:9
   },
   actions: {
     display: 'flex',
+    alignItems: 'bottom',
+    bottom: 0,
   },
   expand: {
     transform: 'rotate(0deg)',

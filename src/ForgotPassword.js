@@ -61,7 +61,7 @@ class ForgotPassword extends React.Component {
             </Typography>
             <Typography variant="body2" align="center">
               {"Enter your email address below and we'll " +
-                'send you a link to reset your password.'}
+                "send you a link to reset your password."}
             </Typography>
           </React.Fragment>
           <Form
@@ -99,7 +99,7 @@ class ForgotPassword extends React.Component {
                   color="secondary"
                   fullWidth
                 >
-                  {submitting || sent ? 'In progress…' : 'Send reset link'}
+                  {submitting || sent ? "In progress…" : "Send reset link"}
                 </FormButton>
               </form>
             )}

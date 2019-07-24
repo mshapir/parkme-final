@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Home from './Home';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import NewListingForm from './NewListingForm';
 import ListingCont from './ListingCont';
+import ListingShowPage from './ListingShowPage'
 import ReservationCont from './ReservationCont';
 import MyAccount from './MyAccount';
 import {Route, Switch, withRouter} from 'react-router-dom';
@@ -161,6 +161,10 @@ class App extends Component {
         <Route
         path='/newlisting'
         render={() => (<NewListingForm updateListings={this.updateListings} user={this.state.user} logout={this.handleLogout} goToAccount={this.goToAccount}/>)}
+        />
+        <Route
+        path='/listingshow'
+        render={() => (<ListingShowPage />)}
         />
         <Route
         path='/listings'

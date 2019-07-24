@@ -5,13 +5,12 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import { Field, Form, FormSpy } from 'react-final-form';
 import Typography from './modules/components/Typography';
 import AppFooter from './modules/views/AppFooter';
 import AppAppBar from './modules/views/AppAppBar';
 import AppForm from './modules/views/AppForm';
-import { email, required } from './modules/form/validation';
+import { required } from './modules/form/validation';
 import RFTextField from './modules/form/RFTextField';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
@@ -120,7 +119,6 @@ class NewListingForm extends React.Component {
                   </Grid>
                 </Grid>
                 <Field
-                autoFocus
                 component={RFTextField}
                 autoComplete="fname"
                 fullWidth
